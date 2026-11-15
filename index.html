@@ -1,0 +1,1718 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dossier d'Investigació de l'Entorn · Escola Agustí Bartra</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      /* Colors inspirats en la identitat de l'Escola Agustí Bartra i Terrassa (Granat, Or i Pissarra) */
+      --bartra-garnet: #881337;       /* Granat principal */
+      --bartra-garnet-light: #9f1239; /* Granat vibrant */
+      --bartra-garnet-subtle: #fff1f2;/* Fons granat suau */
+      
+      --bartra-gold: #b45309;         /* Or càlid / Ambre */
+      --bartra-gold-light: #d97706;   /* Or lluminós */
+      --bartra-gold-subtle: #fffbeb;  /* Fons or suau */
+      
+      --slate-dark: #0f172a;          /* Text principal fosc */
+      --slate-body: #334155;          /* Text de lectura */
+      --slate-muted: #64748b;         /* Text secundari */
+      --slate-border: #cbd5e1;        /* Vores principals */
+      --slate-border-light: #e2e8f0;  /* Vores suaus */
+      
+      --bg-canvas: #f8fafc;           /* Fons de pàgina net */
+      --surface: #ffffff;             /* Targetes blanques */
+      
+      --success: #15803d;             /* Verd d'èxit */
+      --success-bg: #f0fdf4;
+      --success-border: #86efac;
+      
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+      --shadow-md: 0 6px 18px -3px rgba(15, 23, 42, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      background-color: var(--bg-canvas);
+      color: var(--slate-body);
+      line-height: 1.55;
+      padding: 20px 14px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 840px;
+      margin: 0 auto;
+    }
+
+    /* Enllaços sensibles i destacats */
+    a.link-web {
+      color: var(--bartra-garnet);
+      text-decoration: underline;
+      font-weight: 700;
+      word-break: break-all;
+      transition: color 0.15s, background-color 0.15s;
+      padding: 2px 4px;
+      border-radius: 4px;
+    }
+
+    a.link-web:hover {
+      color: #ffffff;
+      background-color: var(--bartra-garnet);
+      text-decoration: none;
+    }
+
+    .link-pill-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--surface);
+      color: var(--bartra-garnet);
+      border: 1.5px solid var(--bartra-garnet);
+      padding: 6px 14px;
+      border-radius: 30px;
+      font-size: 0.88rem;
+      font-weight: 700;
+      text-decoration: none;
+      margin-top: 8px;
+      transition: all 0.2s;
+    }
+
+    .link-pill-btn:hover {
+      background: var(--bartra-garnet);
+      color: #ffffff;
+      transform: translateY(-1px);
+      box-shadow: 0 3px 8px rgba(136, 19, 55, 0.2);
+    }
+
+    /* Capçalera institucional */
+    .app-header {
+      background: var(--surface);
+      border: 1px solid var(--slate-border-light);
+      border-top: 5px solid var(--bartra-garnet);
+      border-radius: var(--radius-md);
+      padding: 18px 24px;
+      margin-bottom: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: var(--shadow-sm);
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .school-title-area h1 {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: var(--bartra-garnet);
+      letter-spacing: -0.01em;
+    }
+
+    .school-title-area p {
+      font-size: 0.88rem;
+      color: var(--slate-muted);
+      font-weight: 600;
+    }
+
+    .header-buttons {
+      display: flex;
+      gap: 8px;
+    }
+
+    .btn-header {
+      background: #f8fafc;
+      border: 1px solid var(--slate-border);
+      color: var(--slate-dark);
+      padding: 7px 14px;
+      border-radius: var(--radius-sm);
+      font-size: 0.85rem;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s;
+    }
+
+    .btn-header:hover {
+      background: #e2e8f0;
+    }
+
+    /* Barra de Navegació entre Preguntes (1..16 lliure) */
+    .nav-stepper {
+      background: var(--surface);
+      border: 1px solid var(--slate-border-light);
+      border-radius: var(--radius-md);
+      padding: 12px 16px;
+      margin-bottom: 20px;
+      box-shadow: var(--shadow-sm);
+      overflow-x: auto;
+    }
+
+    .nav-stepper-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--slate-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .stepper-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 10px;
+      margin-top: 8px;
+    }
+
+    .theme-block {
+      background: #f8fafc;
+      border: 1.5px solid var(--slate-border-light);
+      border-radius: var(--radius-sm);
+      padding: 8px 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      transition: all 0.15s ease;
+    }
+
+    .theme-block.active-theme {
+      border-color: var(--bartra-garnet);
+      background: var(--bartra-garnet-subtle);
+    }
+
+    .theme-block.all-correct {
+      border-color: var(--success-border);
+      background: var(--success-bg);
+    }
+
+    .theme-block-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.78rem;
+      font-weight: 800;
+      color: var(--slate-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .theme-block.active-theme .theme-block-header {
+      color: var(--bartra-garnet);
+    }
+
+    .theme-block.all-correct .theme-block-header {
+      color: var(--success);
+    }
+
+    .theme-btn-group {
+      display: flex;
+      gap: 6px;
+    }
+
+    .step-btn {
+      flex: 1;
+      height: 34px;
+      border-radius: 6px;
+      border: 1.5px solid var(--slate-border);
+      background: #ffffff;
+      color: var(--slate-body);
+      font-size: 0.85rem;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s ease;
+      position: relative;
+    }
+
+    .step-btn:hover {
+      background: #e2e8f0;
+      border-color: var(--slate-muted);
+    }
+
+    .step-btn.current {
+      background: var(--bartra-garnet);
+      border-color: var(--bartra-garnet);
+      color: #ffffff;
+      box-shadow: 0 0 0 2px rgba(136, 19, 55, 0.25);
+    }
+
+    .step-btn.correct {
+      background: var(--success);
+      border-color: var(--success);
+      color: #ffffff;
+    }
+
+    .step-btn.attempted {
+      background: var(--bartra-gold-subtle);
+      border-color: var(--bartra-gold);
+      color: var(--bartra-gold);
+      font-weight: 800;
+    }
+
+    /* Targeta Principal */
+    .main-card {
+      background: var(--surface);
+      border: 1px solid var(--slate-border-light);
+      border-radius: var(--radius-lg);
+      padding: 32px 28px;
+      box-shadow: var(--shadow-md);
+      margin-bottom: 24px;
+    }
+
+    /* Pantalla d'Inici */
+    .welcome-box {
+      text-align: center;
+      max-width: 620px;
+      margin: 0 auto 28px;
+    }
+
+    .badge-bartra {
+      display: inline-block;
+      background: var(--bartra-garnet-subtle);
+      color: var(--bartra-garnet);
+      border: 1px solid rgba(136, 19, 55, 0.2);
+      padding: 4px 14px;
+      border-radius: 20px;
+      font-size: 0.82rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 12px;
+    }
+
+    .welcome-title {
+      font-size: 1.85rem;
+      font-weight: 800;
+      color: var(--bartra-garnet);
+      line-height: 1.25;
+      margin-bottom: 12px;
+    }
+
+    .welcome-text {
+      font-size: 0.98rem;
+      color: var(--slate-body);
+      line-height: 1.6;
+    }
+
+    .team-form-card {
+      background: #f8fafc;
+      border: 1.5px solid var(--slate-border);
+      border-radius: var(--radius-md);
+      padding: 22px;
+      max-width: 520px;
+      margin: 0 auto 28px;
+      text-align: left;
+    }
+
+    .team-form-card label {
+      display: block;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--slate-dark);
+      margin-bottom: 8px;
+    }
+
+    .text-input {
+      width: 100%;
+      padding: 12px 16px;
+      font-size: 1rem;
+      border: 1.5px solid var(--slate-border);
+      border-radius: var(--radius-sm);
+      outline: none;
+      font-family: inherit;
+      color: var(--slate-dark);
+      background: #ffffff;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+
+    .text-input:focus {
+      border-color: var(--bartra-garnet);
+      box-shadow: 0 0 0 3px rgba(136, 19, 55, 0.15);
+    }
+
+    .textarea-input {
+      width: 100%;
+      min-height: 90px;
+      padding: 12px 16px;
+      font-size: 1rem;
+      border: 1.5px solid var(--slate-border);
+      border-radius: var(--radius-sm);
+      outline: none;
+      font-family: inherit;
+      color: var(--slate-dark);
+      background: #ffffff;
+      resize: vertical;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+
+    .textarea-input:focus {
+      border-color: var(--bartra-garnet);
+      box-shadow: 0 0 0 3px rgba(136, 19, 55, 0.15);
+    }
+
+    /* Botons Principals */
+    .btn-action-primary {
+      background: var(--bartra-garnet);
+      color: #ffffff;
+      border: none;
+      padding: 13px 26px;
+      border-radius: var(--radius-sm);
+      font-size: 1rem;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: background 0.15s, transform 0.1s;
+    }
+
+    .btn-action-primary:hover {
+      background: var(--bartra-garnet-light);
+    }
+
+    .btn-action-secondary {
+      background: #ffffff;
+      border: 1.5px solid var(--slate-border);
+      color: var(--slate-dark);
+      padding: 11px 20px;
+      border-radius: var(--radius-sm);
+      font-size: 0.95rem;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s;
+    }
+
+    .btn-action-secondary:hover {
+      background: #f1f5f9;
+      border-color: var(--slate-muted);
+    }
+
+    .btn-action-solution {
+      background: var(--bartra-gold-subtle);
+      border: 1.5px solid var(--bartra-gold);
+      color: var(--bartra-gold);
+      padding: 11px 20px;
+      border-radius: var(--radius-sm);
+      font-size: 0.95rem;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s;
+    }
+
+    .btn-action-solution:hover {
+      background: var(--bartra-gold);
+      color: #ffffff;
+    }
+
+    /* Zona Pregunta */
+    .q-top-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--slate-border-light);
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .q-indicator {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .q-number-tag {
+      background: var(--bartra-garnet);
+      color: #ffffff;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      font-weight: 800;
+    }
+
+    .q-zone-text {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--bartra-gold);
+    }
+
+    .btn-listen {
+      background: var(--bartra-garnet-subtle);
+      border: 1px solid rgba(136, 19, 55, 0.2);
+      color: var(--bartra-garnet);
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s;
+    }
+
+    .btn-listen:hover {
+      background: var(--bartra-garnet);
+      color: #ffffff;
+    }
+
+    .btn-listen.speaking {
+      background: #fef08a;
+      border-color: #facc15;
+      color: #854d0e;
+    }
+
+    .q-prompt-text {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--slate-dark);
+      line-height: 1.35;
+      margin-bottom: 18px;
+    }
+
+    /* Imatge adjunta */
+    .media-card {
+      background: #f8fafc;
+      border: 1px solid var(--slate-border);
+      border-radius: var(--radius-md);
+      padding: 12px;
+      margin-bottom: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .media-card img {
+      max-height: 270px;
+      max-width: 100%;
+      height: auto;
+      border-radius: var(--radius-sm);
+      object-fit: contain;
+    }
+
+    .media-caption {
+      margin-top: 8px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--slate-muted);
+    }
+
+    /* Pista de Recerca amb Enllaç Sensible */
+    .research-clue-card {
+      background: var(--bartra-gold-subtle);
+      border: 1px solid rgba(180, 83, 9, 0.3);
+      border-left: 4px solid var(--bartra-gold);
+      border-radius: var(--radius-sm);
+      padding: 14px 18px;
+      margin-bottom: 22px;
+      font-size: 0.92rem;
+      color: #78350f;
+      line-height: 1.5;
+    }
+
+    .research-clue-card strong {
+      color: #92400e;
+    }
+
+    .links-bar {
+      margin-top: 10px;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    /* Caixes de Retroacció (Feedback i Pistes) */
+    .feedback-banner {
+      border-radius: var(--radius-md);
+      padding: 16px 20px;
+      margin-top: 22px;
+      margin-bottom: 18px;
+      animation: fadeIn 0.2s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .feedback-banner.correct {
+      background: var(--success-bg);
+      border: 1.5px solid var(--success-border);
+      color: var(--success);
+    }
+
+    .feedback-banner.incorrect {
+      background: var(--bartra-gold-subtle);
+      border: 1.5px solid var(--bartra-gold);
+      color: #78350f;
+    }
+
+    .feedback-status-title {
+      font-size: 1.05rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+
+    .feedback-body {
+      font-size: 0.93rem;
+      color: var(--slate-body);
+      line-height: 1.5;
+    }
+
+    .clue-hint-box {
+      margin-top: 10px;
+      background: #ffffff;
+      border: 1px dashed var(--bartra-gold);
+      border-radius: var(--radius-sm);
+      padding: 10px 14px;
+      font-size: 0.9rem;
+      color: #92400e;
+    }
+
+    /* Caixa Desplegable de Solució */
+    .solution-box {
+      background: #f1f5f9;
+      border: 1.5px solid var(--slate-border);
+      border-left: 4px solid var(--bartra-garnet);
+      border-radius: var(--radius-sm);
+      padding: 14px 18px;
+      margin-top: 16px;
+      margin-bottom: 18px;
+      font-size: 0.93rem;
+      color: var(--slate-dark);
+      animation: fadeIn 0.2s ease;
+    }
+
+    .solution-box strong {
+      color: var(--bartra-garnet);
+    }
+
+    /* Fila d'Accions Inferior */
+    .bottom-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 20px;
+      border-top: 1px solid var(--slate-border-light);
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 24px;
+    }
+
+    .team-info-badge {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--slate-muted);
+    }
+
+    .nav-btn-group {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    /* Taula de Resum Final */
+    .summary-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+      font-size: 0.88rem;
+    }
+
+    .summary-table th, .summary-table td {
+      border: 1px solid var(--slate-border);
+      padding: 10px 12px;
+      text-align: left;
+    }
+
+    .summary-table th {
+      background: #f1f5f9;
+      color: var(--slate-dark);
+      font-weight: 700;
+    }
+
+    /* Modal per al Mestre */
+    .modal-backdrop {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(15, 23, 42, 0.6);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      padding: 16px;
+    }
+
+    .modal-backdrop.active {
+      display: flex;
+    }
+
+    .modal-sheet {
+      background: #ffffff;
+      border-radius: var(--radius-lg);
+      max-width: 760px;
+      width: 100%;
+      max-height: 85vh;
+      overflow-y: auto;
+      padding: 28px;
+      position: relative;
+    }
+
+    .modal-close-icon {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: #f1f5f9;
+      border: none;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      font-size: 1.1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--slate-muted);
+    }
+
+    /* Print */
+    @media print {
+      body {
+        background: #ffffff;
+        padding: 0;
+      }
+      .app-header, .nav-stepper, .bottom-controls, .links-bar, .btn-listen, .btn-header {
+        display: none !important;
+      }
+      .main-card {
+        border: none;
+        box-shadow: none;
+        padding: 0;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .main-card {
+        padding: 20px 16px;
+      }
+      .q-prompt-text {
+        font-size: 1.15rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    
+    <!-- Capçalera Oficial -->
+    <header class="app-header">
+      <div class="school-title-area">
+        <h1>Escola Agustí Bartra</h1>
+        <p>Dossier de Recerca de l'Entorn · 5è de Primària</p>
+      </div>
+      <div class="header-buttons">
+        <button class="btn-header" id="btn-sound-toggle" title="Activar/Silenciar so">
+          <span id="sound-icon">🔊</span> So
+        </button>
+        <button class="btn-header" id="btn-show-solutions">
+          <span>🎓</span> Solucionari docent
+        </button>
+      </div>
+    </header>
+
+    <!-- Barra de Salt Lliure entre Preguntes (1..16) -->
+    <nav class="nav-stepper" id="nav-stepper" style="display: none;">
+      <div class="nav-stepper-header">
+        <span>Tria qualsevol pregunta per respondre:</span>
+        <span id="progress-summary">0 / 16 respostes</span>
+      </div>
+      <div class="stepper-grid" id="stepper-grid">
+        <!-- Rendered by JS: buttons 1 to 16 -->
+      </div>
+    </nav>
+
+    <!-- Cos principal dinàmic -->
+    <main class="main-card" id="main-content">
+      <!-- Welcome, Question or Summary will be rendered here -->
+    </main>
+
+  </div>
+
+  <!-- Modal Solucionari Oficial per al Docent -->
+  <div class="modal-backdrop" id="teacher-modal">
+    <div class="modal-sheet">
+      <button class="modal-close-icon" id="teacher-modal-close">&times;</button>
+      <h2 style="font-size: 1.4rem; font-weight: 800; color: var(--bartra-garnet); margin-bottom: 6px;">
+        Solucionari Oficial del Dossier (1 a 16)
+      </h2>
+      <p style="font-size: 0.9rem; color: var(--slate-muted); margin-bottom: 18px;">
+        Consulteu les respostes oficials de referència i els criteris d'avaluació.
+      </p>
+      <div id="teacher-modal-content"></div>
+    </div>
+  </div>
+
+  <script>
+    /* =========================================================================
+       1. DADES DELS 16 REPTES D'INVESTIGACIÓ AMB ENLLAÇOS SENSIBLES I PISTES
+       ========================================================================= */
+    const QUESTIONS = [
+      // 1. Escola (adreça)
+      {
+        id: 1,
+        zone: "L'Escola",
+        title: "A quina avinguda de Terrassa està situada l'escola Agustí Bartra?",
+        searchTip: "Cerqueu a Google l'adreça oficial del centre o consulteu la pàgina web de l'escola.",
+        links: [
+          { label: "Cerca a Google: adreça escola Agustí Bartra", url: "https://www.google.com/search?q=adre%C3%A7a+escola+Agust%C3%AD+Bartra+Terrassa" },
+          { label: "Web de l'Escola Agustí Bartra", url: "https://agora.xtec.cat/escagustibartra/" }
+        ],
+        hint: "Pista: És una de les avingudes principals de Terrassa que comença amb la lletra 'B' (el nom de la capital catalana) i té el número 69.",
+        placeholder: "Escriu el nom de l'avinguda...",
+        inputType: "text",
+        modelAnswer: "Avinguda de Barcelona, número 69 (Terrassa).",
+        explanation: "L'escola Agustí Bartra està situada a l'Avinguda de Barcelona, 69, al barri de Ca n'Anglada.",
+        didYouKnow: "Aquesta avinguda connecta directament el barri amb el centre de la ciutat i la sortida cap a la comarca.",
+        validate: (input) => normalize(input).includes("barcelona")
+      },
+      // 2. Escola (any inauguració)
+      {
+        id: 2,
+        zone: "L'Escola",
+        title: "En quin any es va inaugurar l’escola Agustí Bartra?",
+        searchTip: "Cerqueu a Google la història i l'any d'inauguració de l'escola Agustí Bartra.",
+        links: [
+          { label: "Cerca a Google: història escola Agustí Bartra", url: "https://www.google.com/search?q=hist%C3%B2ria+escola+Agust%C3%AD+Bartra" }
+        ],
+        hint: "Pista: Va ser a principis dels anys 80, exactament el mateix any en què va morir el poeta Agustí Bartra (entre 1981 i 1983).",
+        placeholder: "Escriu l'any (ex: 1980)...",
+        inputType: "text",
+        modelAnswer: "L'any 1982.",
+        explanation: "L'escola es va inaugurar el setembre de 1982 per Anna Murià, vídua del poeta Agustí Bartra.",
+        didYouKnow: "El terreny es va reservar gràcies a la mobilització de les famílies del barri que reclamaven una escola pública.",
+        validate: (input) => input.includes("1982")
+      },
+      // 3. Barri (segle masia)
+      {
+        id: 3,
+        zone: "El Barri",
+        title: "En quin segle es va construir la masia de Ca n’Anglada?",
+        searchTip: "Obriu la pàgina web de la Viquipèdia (ca.wikipedia.org). Escriviu al cercador “Masia de Ca n’Anglada”. Trobareu la resposta a la fitxa de la dreta sota la imatge.",
+        links: [
+          { label: "Pàgina de la Viquipèdia: Masia de Ca n'Anglada", url: "https://ca.wikipedia.org/wiki/Masia_de_Ca_n%27Anglada" }
+        ],
+        image: "assets/masia-can-anglada.png",
+        imageCaption: "Masia de Ca n'Anglada",
+        hint: "Pista: A la fitxa de la dreta de la Viquipèdia, mireu l'apartat 'Època'. És un segle expressat en números romans (XV).",
+        placeholder: "Escriu el segle (ex: segle XV)...",
+        inputType: "text",
+        modelAnswer: "Segle XV (finals de l'edat mitjana).",
+        explanation: "L'edifici principal de la Masia de Ca n'Anglada va ser aixecat al segle XV, amb ampliacions posteriors.",
+        didYouKnow: "Al seu costat hi ha l'ermita de Sant Cristòfol, construïda encara abans: al segle XI.",
+        validate: (input) => {
+          const s = normalize(input);
+          return s.includes("xv") || s.includes("15") || s.includes("quinze");
+        }
+      },
+      // 4. Barri (escultura Camins)
+      {
+        id: 4,
+        zone: "El Barri",
+        title: "En quina plaça està situada l’escultura “Camins”?",
+        searchTip: "Cerqueu a Google “escultura Camins Terrassa” i comproveu a quina plaça està situada.",
+        links: [
+          { label: "Cerca a Google: escultura Camins Terrassa", url: "https://www.google.com/search?q=escultura+Camins+Terrassa" }
+        ],
+        image: "assets/escultura-camins.png",
+        imageCaption: "Escultura 'Camins' d'Elisa Arimany",
+        hint: "Pista: És la plaça triangular que fa cantonada entre la carretera de Montcada i l'avinguda de Barcelona, dedicada als països de parla catalana.",
+        placeholder: "Escriu el nom de la plaça...",
+        inputType: "text",
+        modelAnswer: "Plaça dels Països Catalans.",
+        explanation: "L'escultura 'Camins' (d'acer i pedra) està situada a la plaça dels Països Catalans des de 1992.",
+        didYouKnow: "Les seves formes evoquen les xemeneies de les antigues indústries de vapor de Terrassa.",
+        validate: (input) => {
+          const s = normalize(input);
+          return s.includes("paisos catalans") || (s.includes("paisos") && s.includes("catalans"));
+        }
+      },
+      // 5. Ciutat (escut de Terrassa)
+      {
+        id: 5,
+        zone: "La Ciutat",
+        title: "Com és l’escut de Terrassa? Quin edifici històric hi apareix representat a l'esquerra?",
+        searchTip: "Cerqueu a Google Imatges “escut de Terrassa” o consulteu l'article a la Viquipèdia.",
+        links: [
+          { label: "Article a la Viquipèdia: Escut de Terrassa", url: "https://ca.wikipedia.org/wiki/Escut_de_Terrassa" },
+          { label: "Cerca a Google Imatges: escut de Terrassa", url: "https://www.google.com/search?tbm=isch&q=escut+de+Terrassa" }
+        ],
+        image: "assets/escut-terrassa.svg",
+        imageCaption: "Escut caironat oficial de la ciutat de Terrassa",
+        hint: "Pista: És una fortificació medieval de pedra de color blanc amb tres torres (un castell).",
+        placeholder: "Escriu l'edifici o castell que hi apareix...",
+        inputType: "text",
+        modelAnswer: "Un castell (el Castell-Palau de Terrassa) amb 3 torres, al costat de les 4 barres catalanes i la corona mural al capdamunt.",
+        explanation: "L'escut caironat té a la part esquerra el castell d'argent (Castell-Palau) i a la dreta les quatre barres sobre fons d'or.",
+        didYouKnow: "Del castell medieval original encara es pot visitar la cèlebre Torre del Palau al centre.",
+        validate: (input) => {
+          const s = normalize(input);
+          return s.includes("castell") || s.includes("palau") || s.includes("torre");
+        }
+      },
+      // 6. Ciutat (població)
+      {
+        id: 6,
+        zone: "La Ciutat",
+        title: "Quants habitants aproximadament té la ciutat de Terrassa?",
+        searchTip: "Cerqueu a Google “habitants ciutat de Terrassa” i reviseu les dades recents del cens.",
+        links: [
+          { label: "Cerca a Google: habitants ciutat de Terrassa", url: "https://www.google.com/search?q=habitants+ciutat+de+Terrassa" }
+        ],
+        hint: "Pista: Terrassa té més de 220.000 persones (aproximadament 225.000 habitants).",
+        placeholder: "Escriu la xifra d'habitants aproximada...",
+        inputType: "text",
+        modelAnswer: "Aproximadament 225.000 habitants (s'accepta entre 220.000 i 230.000).",
+        explanation: "Terrassa compta amb més de 225.000 habitants i és la tercera ciutat amb més població de Catalunya.",
+        didYouKnow: "Només Barcelona i l'Hospitalet de Llobregat superen Terrassa en nombre d'habitants.",
+        validate: (input) => {
+          const s = normalize(input).replace(/[.\s,]/g, '');
+          const match = s.match(/\d+/);
+          if (match) {
+            const val = parseInt(match[0]);
+            if (val >= 215000 && val <= 240000) return true;
+            if (val >= 215 && val <= 240) return true;
+          }
+          return s.includes("224") || s.includes("225") || s.includes("226") || s.includes("223");
+        }
+      },
+      // 7. Comarca (capitals)
+      {
+        id: 7,
+        zone: "La Comarca",
+        title: "Quines ciutats són les capitals de la comarca del Vallès Occidental? (Són dues ciutats).",
+        searchTip: "Obriu la Viquipèdia (ca.wikipedia.org) i cerqueu “comarca del Vallès Occidental”. La resposta és a la taula de la dreta sota els mapes.",
+        links: [
+          { label: "Article a la Viquipèdia: Vallès Occidental", url: "https://ca.wikipedia.org/wiki/Vall%C3%A8s_Occidental" }
+        ],
+        hint: "Pista: Són dues ciutats agermanades de la comarca que comencen per la lletra 'T' (on vivim) i per la lletra 'S'.",
+        placeholder: "Escriu el nom de totes dues ciutats...",
+        inputType: "text",
+        modelAnswer: "Terrassa i Sabadell.",
+        explanation: "El Vallès Occidental té dues capitals que comparteixen la seu comarcal: Terrassa i Sabadell.",
+        didYouKnow: "Totes dues van ser grans centres històrics de la indústria tèxtil catalana.",
+        validate: (input) => {
+          const s = normalize(input);
+          return s.includes("terrassa") && s.includes("sabadell");
+        }
+      },
+      // 8. Comarca (comarques veïnes)
+      {
+        id: 8,
+        zone: "La Comarca",
+        title: "Amb quines altres comarques limita el Vallès Occidental? Escriu almenys tres comarques veïnes.",
+        searchTip: "Cerqueu a Google Imatges “mapa de les comarques de Catalunya” i mireu les que toquen al Vallès Occidental.",
+        links: [
+          { label: "Cerca a Google Imatges: mapa de les comarques de Catalunya", url: "https://www.google.com/search?tbm=isch&q=mapa+de+les+comarques+de+Catalunya" }
+        ],
+        hint: "Pista: Penseu en el Bages (al nord), el Baix Llobregat (a l'oest), el Barcelonès o el Vallès Oriental.",
+        placeholder: "Escriu comarques veïnes (ex: Bages, Baix Llobregat, Vallès Oriental...)...",
+        inputType: "textarea",
+        modelAnswer: "Bages, Moianès, Vallès Oriental, Barcelonès i Baix Llobregat.",
+        explanation: "El Vallès Occidental està envoltat per cinc comarques: Bages, Moianès, Vallès Oriental, Barcelonès i Baix Llobregat.",
+        didYouKnow: "La muntanya de la Mola i el Parc de Collserola en marquen els límits geogràfics.",
+        validate: (input) => {
+          const s = normalize(input);
+          const list = ["bages", "moianes", "valles oriental", "barcelones", "baix llobregat"];
+          let count = 0;
+          list.forEach(c => { if (s.includes(c)) count++; });
+          return count >= 2;
+        }
+      },
+      // 9. Catalunya (president)
+      {
+        id: 9,
+        zone: "Catalunya",
+        title: "Com es diu la persona que és president de la Generalitat de Catalunya?",
+        searchTip: "Obriu la Viquipèdia (ca.wikipedia.org) i cerqueu “president de la Generalitat de Catalunya”.",
+        links: [
+          { label: "Article a la Viquipèdia: President de la Generalitat de Catalunya", url: "https://ca.wikipedia.org/wiki/President_de_la_Generalitat_de_Catalunya" }
+        ],
+        hint: "Pista: El seu cognom és molt curt (quatre lletres) i coincideix amb el nom d'un tros de terra envoltat d'aigua per totes bandes: I---.",
+        placeholder: "Escriu el nom i cognom de la presidència...",
+        inputType: "text",
+        modelAnswer: "Salvador Illa (s'accepta també el president sortint Pere Aragonès si es consulta una font prèvia).",
+        explanation: "Salvador Illa és el president actual de la Generalitat de Catalunya.",
+        didYouKnow: "El Palau de la Generalitat a la plaça Sant Jaume de Barcelona és la seu de la presidència.",
+        validate: (input) => {
+          const s = normalize(input);
+          return s.includes("illa") || s.includes("salvador") || s.includes("aragones");
+        }
+      },
+      // 10. Catalunya (rius)
+      {
+        id: 10,
+        zone: "Catalunya",
+        title: "Escriviu el nom de quatre rius importants de Catalunya.",
+        searchTip: "Cerqueu a Google Imatges “mapa dels rius de Catalunya” i observeu els cursos fluvials principals.",
+        links: [
+          { label: "Cerca a Google Imatges: mapa dels rius de Catalunya", url: "https://www.google.com/search?tbm=isch&q=mapa+dels+rius+de+Catalunya" }
+        ],
+        hint: "Pista: Penseu en el riu més cabalós que desemboca al Delta (comença per E) i en el riu Llobregat, Ter o Segre.",
+        placeholder: "Escriu 4 rius de Catalunya...",
+        inputType: "textarea",
+        modelAnswer: "Riu Ebre, riu Llobregat, riu Ter i riu Segre (també són vàlids Besòs, Fluvià, Muga, Francolí, Tordera...).",
+        explanation: "L'Ebre, el Segre, el Llobregat i el Ter són les principals artèries fluvials del territori català.",
+        didYouKnow: "L'aigua dels aixetes de casa a Terrassa prové de les conques del Llobregat i del Ter.",
+        validate: (input) => {
+          const s = normalize(input);
+          const rivers = ["ebre", "llobregat", "ter", "segre", "besos", "fluvia", "muga", "francoli", "tordera", "garona", "noguera"];
+          let count = 0;
+          rivers.forEach(r => { if (s.includes(r)) count++; });
+          return count >= 3;
+        }
+      },
+      // 11. Espanya (congrés)
+      {
+        id: 11,
+        zone: "Espanya",
+        title: "En quina ciutat està el Congrés dels Diputats, lloc on es reuneixen els representants de la ciutadania?",
+        searchTip: "Obriu la pàgina web de la Viquipèdia (ca.wikipedia.org). Escriviu “Congrés dels Diputats” i llegiu el primer paràgraf.",
+        links: [
+          { label: "Article a la Viquipèdia: Congrés dels Diputats", url: "https://ca.wikipedia.org/wiki/Congr%C3%A9s_dels_Diputats" }
+        ],
+        image: "assets/congres-diputats.png",
+        imageCaption: "Hemicicle del Congrés dels Diputats",
+        hint: "Pista: És la ciutat capital d'Espanya, situada exactament al centre de la península Ibèrica.",
+        placeholder: "Escriu la ciutat on està situat...",
+        inputType: "text",
+        modelAnswer: "Madrid.",
+        explanation: "El Congrés dels Diputats té la seva seu al Palau de les Corts a la ciutat de Madrid.",
+        didYouKnow: "A l'entrada hi ha dos famosos lleons de bronze fabricats amb metall de canons militars.",
+        validate: (input) => normalize(input).includes("madrid")
+      },
+      // 12. Espanya (mundial femení)
+      {
+        id: 12,
+        zone: "Espanya",
+        title: "Quantes vegades ha guanyat la selecció espanyola de futbol femenina el campionat del món?",
+        searchTip: "Obriu la pàgina web de la Viquipèdia (ca.wikipedia.org). Escriviu “Copa del Món femenina de futbol” i mireu al final.",
+        links: [
+          { label: "Article a la Viquipèdia: Copa del Món femenina de futbol", url: "https://ca.wikipedia.org/wiki/Copa_del_M%C3%B3n_femenina_de_futbol" }
+        ],
+        hint: "Pista: Ha estat recentment a la història, amb el títol aconseguit a la final d'Austràlia 2023.",
+        placeholder: "Escriu el nombre de vegades...",
+        inputType: "text",
+        modelAnswer: "1 vegada (l'any 2023).",
+        explanation: "La selecció espanyola femenina va aconseguir el seu primer títol mundial l'agost de 2023.",
+        didYouKnow: "Aitana Bonmatí va ser triada la millor jugadora de tot el campionat.",
+        validate: (input) => {
+          const s = normalize(input);
+          return s.includes("1") || s.includes("una") || s.includes("un cop") || s.includes("2023");
+        }
+      },
+      // 13. Europa (estats membres)
+      {
+        id: 13,
+        zone: "Europa",
+        title: "Escriu el nom de cinc països que formen part de la Unió Europea.",
+        searchTip: "Obriu la pàgina web de la Viquipèdia (ca.wikipedia.org). Escriviu “estats membres de la Unió Europea” i mireu la llista o el mapa.",
+        links: [
+          { label: "Article a la Viquipèdia: Estats membres de la Unió Europea", url: "https://ca.wikipedia.org/wiki/Estats_membres_de_la_Uni%C3%B3_Europea" }
+        ],
+        hint: "Pista: Penseu en els nostres veïns (França o Portugal) o altres països propers com Itàlia, Alemanya o Grècia.",
+        placeholder: "Escriu 5 països de la UE (ex: França, Alemanya, Itàlia, Portugal, Grècia)...",
+        inputType: "textarea",
+        modelAnswer: "Per exemple: França, Alemanya, Itàlia, Portugal, Espanya, Grècia, Bèlgica, Països Baixos, Àustria, Suècia, etc.",
+        explanation: "La Unió Europea és formada per 27 estats membres que cooperen democràticament.",
+        didYouKnow: "El Regne Unit en va sortir oficialment l'any 2020.",
+        validate: (input) => {
+          const s = normalize(input);
+          const euCountries = [
+            "franca", "francia", "alemanya", "alemania", "italia", "portugal", "espanya", "espana", 
+            "grecia", "belgica", "paises baixos", "holanda", "austria", "irlanda", "suecia", "dinamarca", 
+            "finlandia", "polonia", "republica txeca", "hongria", "croacia", "eslovaquia", "eslovenia", 
+            "romania", "bulgaria", "estonia", "letonia", "lituanya", "xipre", "malta", "luxemburg"
+          ];
+          let found = 0;
+          euCountries.forEach(country => { if (s.includes(country)) found++; });
+          return found >= 3;
+        }
+      },
+      // 14. Europa (moneda)
+      {
+        id: 14,
+        zone: "Europa",
+        title: "Quina és la moneda oficial compartida que fan servir els països de la Unió Europea?",
+        searchTip: "Cerqueu a Google “moneda Unió Europea”.",
+        links: [
+          { label: "Cerca a Google: moneda Unió Europea", url: "https://www.google.com/search?q=moneda+Uni%C3%B3+Europea" }
+        ],
+        hint: "Pista: El seu símbol és € i el nom deriva de la primera part del nom del nostre continent.",
+        placeholder: "Escriu el nom de la moneda...",
+        inputType: "text",
+        modelAnswer: "L'Euro (€).",
+        explanation: "L'euro és la moneda comuna compartida per la zona euro des de l'any 2002.",
+        didYouKnow: "Abans de l'euro, la moneda que es feia servir a Catalunya i Espanya era la pesseta.",
+        validate: (input) => {
+          const s = normalize(input);
+          return s.includes("euro") || s.includes("€");
+        }
+      },
+      // 15. La Terra (planetes veïns)
+      {
+        id: 15,
+        zone: "La Terra",
+        title: "Entre quins dos planetes es troba la Terra dins del sistema solar?",
+        searchTip: "Penseu en l'ordre dels planetes des del Sol o cerqueu el sistema solar a la Viquipèdia.",
+        links: [
+          { label: "Article a la Viquipèdia: Sistema solar", url: "https://ca.wikipedia.org/wiki/Sistema_solar" }
+        ],
+        hint: "Pista: El segon planeta més proper al Sol (Venus) i el quart planeta, conegut com el Planeta Vermell (Mart).",
+        placeholder: "Escriu els dos planetes...",
+        inputType: "text",
+        modelAnswer: "Venus i Mart.",
+        explanation: "La Terra és el 3r planeta des del Sol, situat just entre Venus (el 2n) i Mart (el 4t).",
+        didYouKnow: "La Terra és a la distància idònia del Sol perquè l'aigua pugui existir en estat líquid.",
+        validate: (input) => {
+          const s = normalize(input);
+          return s.includes("venus") && (s.includes("mart") || s.includes("marte"));
+        }
+      },
+      // 16. La Terra (proporció aigua/terra)
+      {
+        id: 16,
+        zone: "La Terra",
+        title: "Quina part de la superfície de la Terra aproximadament és aigua i quina part és terra ferma?",
+        searchTip: "Cerqueu a Google la proporció d'aigua i terra al planeta o recordeu per què s'anomena 'el Planeta Blau'.",
+        links: [
+          { label: "Cerca a Google: proporció aigua i terra planeta terra", url: "https://www.google.com/search?q=proporci%C3%B3+aigua+i+terra+planeta+terra" }
+        ],
+        hint: "Pista: L'aigua ocupa gairebé tres quartes parts (al voltant d'un 71%) i els continents el 29% restant.",
+        placeholder: "Escriu la proporció (ex: 71% aigua i 29% terra)...",
+        inputType: "text",
+        modelAnswer: "Aproximadament un 71% d'aigua (unes 3/4 parts) i un 29% de terra ferma (1/4 part).",
+        explanation: "La major part de la superfície terrestre són oceans (71%), i només un 29% és terra emergida.",
+        didYouKnow: "Tot i la gran quantitat d'aigua, només un 3% és aigua dolça disponible.",
+        validate: (input) => {
+          const s = normalize(input);
+          return s.includes("71") || s.includes("70") || s.includes("3/4") || s.includes("tres quart") || (s.includes("aigua") && (s.includes("majoria") || s.includes("7")));
+        }
+      }
+    ];
+
+    function normalize(str) {
+      if (!str) return "";
+      return str
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/[’'`]/g, "'")
+        .trim();
+    }
+
+    /* =========================================================================
+       2. REPRODUCTOR D'ÀUDIO EN CATALÀ I TONS DISCRETS
+       ========================================================================= */
+    class AudioSystem {
+      constructor() {
+        this.ctx = null;
+        this.enabled = true;
+      }
+
+      initCtx() {
+        if (!this.ctx) {
+          const AudioContext = window.AudioContext || window.webkitAudioContext;
+          if (AudioContext) this.ctx = new AudioContext();
+        }
+        if (this.ctx && this.ctx.state === 'suspended') {
+          this.ctx.resume();
+        }
+      }
+
+      playPing(isSuccess) {
+        if (!this.enabled) return;
+        this.initCtx();
+        if (!this.ctx) return;
+
+        try {
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(isSuccess ? 523.25 : 329.63, this.ctx.currentTime);
+
+          gain.gain.setValueAtTime(0.06, this.ctx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.0001, this.ctx.currentTime + 0.3);
+
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start();
+          osc.stop(this.ctx.currentTime + 0.3);
+        } catch (e) {
+          console.warn("Audio error", e);
+        }
+      }
+    }
+
+    const sound = new AudioSystem();
+
+    class VoiceSynth {
+      constructor() {
+        this.synth = window.speechSynthesis;
+        this.voice = null;
+        this.loadVoices();
+        if (this.synth && this.synth.onvoiceschanged !== undefined) {
+          this.synth.onvoiceschanged = () => this.loadVoices();
+        }
+      }
+
+      loadVoices() {
+        if (!this.synth) return;
+        const list = this.synth.getVoices();
+        this.voice = list.find(v => v.lang.toLowerCase().startsWith('ca')) ||
+                     list.find(v => v.name.toLowerCase().includes('catalan') || v.name.toLowerCase().includes('català')) ||
+                     list.find(v => v.lang.toLowerCase().startsWith('es-es')) ||
+                     list[0] || null;
+      }
+
+      speak(text, onStart, onEnd) {
+        if (!this.synth) return;
+        this.stop();
+        const utter = new SpeechSynthesisUtterance(text.replace(/<[^>]+>/g, ' '));
+        if (this.voice) utter.voice = this.voice;
+        utter.lang = this.voice ? this.voice.lang : 'ca-ES';
+        utter.rate = 0.95;
+
+        utter.onstart = () => { if (onStart) onStart(); };
+        utter.onend = () => { if (onEnd) onEnd(); };
+        utter.onerror = () => { if (onEnd) onEnd(); };
+
+        this.synth.speak(utter);
+      }
+
+      stop() {
+        if (this.synth) this.synth.cancel();
+      }
+    }
+
+    const speaker = new VoiceSynth();
+
+    /* =========================================================================
+       3. ESTAT DE L'APLICACIÓ I SALTS LLIURES
+       ========================================================================= */
+    const State = {
+      teamName: "",
+      currentIndex: 0,
+      answers: {},        // { [qId]: { text, isCorrect, checked } }
+      showSolution: {},   // { [qId]: boolean }
+      lastCheckResult: {} // { [qId]: boolean }
+    };
+
+    const mainContent = document.getElementById('main-content');
+    const navStepper = document.getElementById('nav-stepper');
+    const stepperGrid = document.getElementById('stepper-grid');
+    const progressSummary = document.getElementById('progress-summary');
+    const soundToggle = document.getElementById('btn-sound-toggle');
+    const soundIcon = document.getElementById('sound-icon');
+    const btnShowSolutions = document.getElementById('btn-show-solutions');
+    const teacherModal = document.getElementById('teacher-modal');
+    const teacherModalClose = document.getElementById('teacher-modal-close');
+    const teacherModalContent = document.getElementById('teacher-modal-content');
+
+    // Toggle so
+    soundToggle.addEventListener('click', () => {
+      sound.enabled = !sound.enabled;
+      soundIcon.textContent = sound.enabled ? '🔊' : '🔇';
+      soundToggle.innerHTML = `<span>${sound.enabled ? '🔊' : '🔇'}</span> So ${sound.enabled ? 'actiu' : 'silenciat'}`;
+    });
+
+    // Modal docent
+    btnShowSolutions.addEventListener('click', () => {
+      renderTeacherModalSolutions();
+      teacherModal.classList.add('active');
+    });
+
+    teacherModalClose.addEventListener('click', () => {
+      teacherModal.classList.remove('active');
+    });
+
+    teacherModal.addEventListener('click', (e) => {
+      if (e.target === teacherModal) teacherModal.classList.remove('active');
+    });
+
+    /* =========================================================================
+       4. CONTROL DE PANTALLES I NAVEGACIÓ LLIURE AGRUPADA PER TEMES
+       ========================================================================= */
+
+    const THEMES = [
+      { id: "escola", name: "Escola", icon: "🏫", qIndices: [0, 1] },
+      { id: "barri", name: "Barri", icon: "🚌", qIndices: [2, 3] },
+      { id: "terrassa", name: "Terrassa", icon: "🏙️", qIndices: [4, 5] },
+      { id: "comarca", name: "Comarca", icon: "🧭", qIndices: [6, 7] },
+      { id: "catalunya", name: "Catalunya", icon: "🎯", qIndices: [8, 9] },
+      { id: "espanya", name: "Espanya", icon: "🏛️", qIndices: [10, 11] },
+      { id: "europa", name: "Europa", icon: "🇪🇺", qIndices: [12, 13] },
+      { id: "terra", name: "La Terra", icon: "🌍", qIndices: [14, 15] }
+    ];
+
+    // Actualitza la barra superior agrupant les preguntes per temes
+    function renderStepperNav() {
+      stepperGrid.innerHTML = '';
+      let answeredCount = 0;
+
+      // Compta respostes comprovades
+      QUESTIONS.forEach(q => {
+        if (State.answers[q.id] && State.answers[q.id].checked) {
+          answeredCount++;
+        }
+      });
+
+      THEMES.forEach(theme => {
+        const themeBlock = document.createElement('div');
+        const isThemeActive = theme.qIndices.includes(State.currentIndex);
+        
+        // Comprova si totes les preguntes del tema estan encertades
+        const allCorrect = theme.qIndices.every(idx => {
+          const qId = QUESTIONS[idx].id;
+          return State.answers[qId] && State.answers[qId].checked && State.answers[qId].isCorrect;
+        });
+
+        themeBlock.className = `theme-block ${isThemeActive ? 'active-theme' : ''} ${allCorrect ? 'all-correct' : ''}`;
+
+        const header = document.createElement('div');
+        header.className = 'theme-block-header';
+        header.innerHTML = `
+          <span>${theme.icon} ${theme.name}</span>
+          <span style="font-size: 0.9rem;">${allCorrect ? '✓' : ''}</span>
+        `;
+        themeBlock.appendChild(header);
+
+        const btnGroup = document.createElement('div');
+        btnGroup.className = 'theme-btn-group';
+
+        theme.qIndices.forEach(idx => {
+          const q = QUESTIONS[idx];
+          const ans = State.answers[q.id];
+          const isCurrent = idx === State.currentIndex;
+
+          let statusClass = '';
+          if (ans && ans.checked) {
+            statusClass = ans.isCorrect ? 'correct' : 'attempted';
+          }
+
+          const btn = document.createElement('button');
+          btn.className = `step-btn ${isCurrent ? 'current' : ''} ${statusClass}`;
+          btn.title = `Pregunta ${q.id}: ${q.title}`;
+          btn.textContent = ans && ans.checked && ans.isCorrect ? `✓ ${q.id}` : `P.${q.id}`;
+
+          // Permet saltar a qualsevol pregunta en qualsevol moment
+          btn.addEventListener('click', () => {
+            speaker.stop();
+            saveCurrentInput();
+            State.currentIndex = idx;
+            renderQuestionView();
+          });
+
+          btnGroup.appendChild(btn);
+        });
+
+        themeBlock.appendChild(btnGroup);
+        stepperGrid.appendChild(themeBlock);
+      });
+
+      progressSummary.textContent = `${answeredCount} / 16 respostes verificades`;
+    }
+
+    function saveCurrentInput() {
+      const q = QUESTIONS[State.currentIndex];
+      const input = document.getElementById('user-answer-input');
+      if (input && q) {
+        if (!State.answers[q.id]) {
+          State.answers[q.id] = { text: input.value.trim(), isCorrect: false, checked: false };
+        } else {
+          State.answers[q.id].text = input.value.trim();
+        }
+      }
+    }
+
+    // PANTALLA 1: Inici
+    function renderWelcomeScreen() {
+      navStepper.style.display = 'none';
+      mainContent.innerHTML = `
+        <div class="welcome-box">
+          <span class="badge-bartra">Dossier Digital d'Investigació</span>
+          <h2 class="welcome-title">Coneixem el nostre Entorn: De l'Escola a la Terra</h2>
+          <p class="welcome-text">
+            A través d'aquest quadern interactiu fareu recerca activa a la Viquipèdia i a Google. 
+            Podeu <strong>navegar i saltar lliurement per qualsevol de les 16 preguntes</strong>, 
+            escoltar els enunciats i clicar directament als enllaços per trobar les respostes.
+          </p>
+        </div>
+
+        <div class="team-form-card">
+          <label for="team-name-field">👥 Nom de la parella d'investigadors:</label>
+          <input type="text" id="team-name-field" class="text-input" placeholder="Ex: Lucas i Marta" value="${State.teamName}">
+        </div>
+
+        <div style="text-align: center;">
+          <button class="btn-action-primary" id="btn-enter-dossier">
+            <span>Obrir el dossier</span>
+            <span>➔</span>
+          </button>
+        </div>
+      `;
+
+      document.getElementById('btn-enter-dossier').addEventListener('click', () => {
+        const nameVal = document.getElementById('team-name-field').value.trim();
+        State.teamName = nameVal || "Parella d'alumnes";
+        navStepper.style.display = 'block';
+        State.currentIndex = 0;
+        renderQuestionView();
+      });
+    }
+
+    // PANTALLA 2: Vista de Pregunta (amb navegació lliure, pistes i botó solució)
+    function renderQuestionView() {
+      renderStepperNav();
+      const q = QUESTIONS[State.currentIndex];
+      const prevAns = State.answers[q.id] || { text: '', isCorrect: false, checked: false };
+      const showSol = State.showSolution[q.id] || false;
+
+      // Imatge si n'hi ha
+      let imageBlock = '';
+      if (q.image) {
+        imageBlock = `
+          <div class="media-card">
+            <img src="${q.image}" alt="${q.imageCaption || ''}" onerror="this.style.display='none'">
+            <div class="media-caption">📷 ${q.imageCaption || 'Imatge'}</div>
+          </div>
+        `;
+      }
+
+      // Enllaços sensibles
+      const linksHtml = q.links ? q.links.map(l => `
+        <a href="${l.url}" target="_blank" rel="noopener noreferrer" class="link-pill-btn">
+          <span>🔗</span> <span>${l.label}</span> <span>↗</span>
+        </a>
+      `).join('') : '';
+
+      // Camp de resposta
+      let inputFieldHtml = '';
+      if (q.inputType === 'textarea') {
+        inputFieldHtml = `
+          <textarea id="user-answer-input" class="textarea-input" placeholder="${q.placeholder}">${prevAns.text}</textarea>
+        `;
+      } else {
+        inputFieldHtml = `
+          <input type="text" id="user-answer-input" class="text-input" placeholder="${q.placeholder}" value="${prevAns.text}">
+        `;
+      }
+
+      mainContent.innerHTML = `
+        <div class="q-top-row">
+          <div class="q-indicator">
+            <span class="q-number-tag">Pregunta ${q.id} de 16</span>
+            <span class="q-zone-text">Àmbit: ${q.zone}</span>
+          </div>
+          <button class="btn-listen" id="btn-listen-prompt" title="Escoltar pregunta en veu alta">
+            <span>🔊</span> <span id="listen-txt">Escoltar</span>
+          </button>
+        </div>
+
+        <h3 class="q-prompt-text">${q.title}</h3>
+
+        ${imageBlock}
+
+        <div class="research-clue-card">
+          <div><strong>🔍 On trobar la resposta:</strong></div>
+          <p style="margin-top: 4px;">${q.searchTip}</p>
+          <div class="links-bar">
+            ${linksHtml}
+          </div>
+        </div>
+
+        <div style="margin-bottom: 20px;">
+          <label for="user-answer-input" style="display: block; font-weight: 700; margin-bottom: 8px; color: var(--slate-dark);">
+            La vostra resposta:
+          </label>
+          ${inputFieldHtml}
+        </div>
+
+        <!-- Àrea de comprovació i pista -->
+        <div id="result-feedback-area"></div>
+
+        <!-- Àrea desplegable de solució oficial -->
+        <div id="solution-reveal-area" style="display: ${showSol ? 'block' : 'none'};">
+          <div class="solution-box">
+            <strong>📖 Resposta de referència:</strong> ${q.modelAnswer}<br>
+            <div style="margin-top: 6px; font-size: 0.88rem; color: var(--slate-muted);">
+              ${q.explanation}
+            </div>
+          </div>
+        </div>
+
+        <!-- Fila de controls inferiors -->
+        <div class="bottom-controls">
+          <button class="btn-action-secondary" id="btn-prev-q" ${State.currentIndex === 0 ? 'disabled style="opacity: 0.5; cursor: not-allowed;"' : ''}>
+            <span>⬅ Anterior</span>
+          </button>
+
+          <div class="nav-btn-group">
+            <button class="btn-action-primary" id="btn-check-answer">
+              <span>Comprovar resposta</span>
+            </button>
+            <button class="btn-action-solution" id="btn-toggle-solution">
+              <span>🔑 ${showSol ? 'Ocultar solució' : 'Veure solució'}</span>
+            </button>
+          </div>
+
+          <button class="btn-action-secondary" id="btn-next-q">
+            <span>${State.currentIndex === QUESTIONS.length - 1 ? 'Resum final ➔' : 'Següent ➔'}</span>
+          </button>
+        </div>
+      `;
+
+      // Inicialitza feedback si ja s'havia comprovat
+      if (prevAns.checked) {
+        renderFeedbackUI(prevAns.isCorrect, q);
+      }
+
+      // 1. Text to Speech
+      const listenBtn = document.getElementById('btn-listen-prompt');
+      const listenTxt = document.getElementById('listen-txt');
+      let isPlaying = false;
+
+      listenBtn.addEventListener('click', () => {
+        if (isPlaying) {
+          speaker.stop();
+          listenBtn.classList.remove('speaking');
+          listenTxt.textContent = "Escoltar";
+          isPlaying = false;
+        } else {
+          const textToSpeak = `${q.title}. ${q.searchTip.replace(/<[^>]+>/g, '')}`;
+          speaker.speak(textToSpeak, () => {
+            listenBtn.classList.add('speaking');
+            listenTxt.textContent = "Aturar";
+            isPlaying = true;
+          }, () => {
+            listenBtn.classList.remove('speaking');
+            listenTxt.textContent = "Escoltar";
+            isPlaying = false;
+          });
+        }
+      });
+
+      // 2. Comprovar resposta (NOMÉS DIU SI ÉS CORRECTA O NO, I SI NO, DONA UNA PISTA)
+      const btnCheck = document.getElementById('btn-check-answer');
+      btnCheck.addEventListener('click', () => {
+        const inputVal = document.getElementById('user-answer-input').value.trim();
+        if (!inputVal) {
+          alert("Escriviu primer una resposta abans de comprovar.");
+          document.getElementById('user-answer-input').focus();
+          return;
+        }
+
+        const isCorrect = q.validate(inputVal);
+        State.answers[q.id] = { text: inputVal, isCorrect, checked: true };
+        sound.playPing(isCorrect);
+
+        renderFeedbackUI(isCorrect, q);
+        renderStepperNav();
+      });
+
+      // 3. Botó solució (mostra la resposta oficial)
+      const btnSolution = document.getElementById('btn-toggle-solution');
+      btnSolution.addEventListener('click', () => {
+        State.showSolution[q.id] = !State.showSolution[q.id];
+        const isNowShown = State.showSolution[q.id];
+        document.getElementById('solution-reveal-area').style.display = isNowShown ? 'block' : 'none';
+        btnSolution.innerHTML = `<span>🔑 ${isNowShown ? 'Ocultar solució' : 'Veure solució'}</span>`;
+      });
+
+      // 4. Navegació Anterior / Següent
+      document.getElementById('btn-prev-q').addEventListener('click', () => {
+        if (State.currentIndex > 0) {
+          speaker.stop();
+          saveCurrentInput();
+          State.currentIndex--;
+          renderQuestionView();
+        }
+      });
+
+      document.getElementById('btn-next-q').addEventListener('click', () => {
+        speaker.stop();
+        saveCurrentInput();
+        if (State.currentIndex < QUESTIONS.length - 1) {
+          State.currentIndex++;
+          renderQuestionView();
+        } else {
+          renderSummaryView();
+        }
+      });
+    }
+
+    // Render del feedback: Diu si és correcta o no, i si no, dóna una PISTA
+    function renderFeedbackUI(isCorrect, q) {
+      const fbArea = document.getElementById('result-feedback-area');
+      if (!fbArea) return;
+
+      if (isCorrect) {
+        fbArea.innerHTML = `
+          <div class="feedback-banner correct">
+            <div class="feedback-status-title">
+              <span>✅</span> <span>Resposta correcta! Molt bona recerca.</span>
+            </div>
+            <div class="feedback-body">
+              ${q.didYouKnow ? `<strong>💡 Sabies que...?</strong> ${q.didYouKnow}` : ''}
+            </div>
+          </div>
+        `;
+      } else {
+        fbArea.innerHTML = `
+          <div class="feedback-banner incorrect">
+            <div class="feedback-status-title">
+              <span>⚠️</span> <span>La resposta encara no és correcta.</span>
+            </div>
+            <div class="feedback-body">
+              Torneu a revisar la cerca amb calma.
+              <div class="clue-hint-box">
+                <strong>💡 Pista d'ajuda:</strong> ${q.hint}
+              </div>
+            </div>
+          </div>
+        `;
+      }
+    }
+
+    // PANTALLA 3: Resum Final
+    function renderSummaryView() {
+      navStepper.style.display = 'none';
+      let correctCount = 0;
+      QUESTIONS.forEach(q => {
+        if (State.answers[q.id] && State.answers[q.id].isCorrect) {
+          correctCount++;
+        }
+      });
+
+      const rows = QUESTIONS.map(q => {
+        const ans = State.answers[q.id] || { text: 'Sense respondre', isCorrect: false };
+        return `
+          <tr>
+            <td style="font-weight: 800; text-align: center;">${q.id}</td>
+            <td><strong>${q.title}</strong></td>
+            <td>${ans.text || '<em>En blanc</em>'}</td>
+            <td style="font-weight: 700; color: ${ans.isCorrect ? 'var(--success)' : 'var(--bartra-gold)'};">
+              ${ans.isCorrect ? '✓ Correcta' : 'Revisable'}
+            </td>
+          </tr>
+        `;
+      }).join('');
+
+      mainContent.innerHTML = `
+        <div style="text-align: center; margin-bottom: 22px;">
+          <span class="badge-bartra">Resum de la Recerca</span>
+          <h2 class="welcome-title">Informe Final del Dossier</h2>
+          <p class="welcome-text">
+            Parella d'investigadors: <strong>${State.teamName}</strong><br>
+            Resultat: <strong>${correctCount} de 16 preguntes correctes</strong>.
+          </p>
+        </div>
+
+        <table class="summary-table">
+          <thead>
+            <tr>
+              <th style="width: 45px; text-align: center;">Núm.</th>
+              <th>Pregunta</th>
+              <th>La vostra resposta</th>
+              <th style="width: 100px;">Estat</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${rows}
+          </tbody>
+        </table>
+
+        <div style="display: flex; justify-content: center; gap: 12px; margin-top: 24px; flex-wrap: wrap;">
+          <button class="btn-action-primary" onclick="window.print()">
+            <span>🖨️ Imprimir / Guardar en PDF</span>
+          </button>
+          <button class="btn-action-secondary" id="btn-return-questions">
+            <span>Tornar a les preguntes</span>
+          </button>
+        </div>
+      `;
+
+      document.getElementById('btn-return-questions').addEventListener('click', () => {
+        navStepper.style.display = 'block';
+        State.currentIndex = 0;
+        renderQuestionView();
+      });
+    }
+
+    // Modal Solucions Docents
+    function renderTeacherModalSolutions() {
+      teacherModalContent.innerHTML = QUESTIONS.map(q => `
+        <div style="border-bottom: 1px solid var(--slate-border-light); padding: 12px 0;">
+          <div style="font-weight: 800; color: var(--bartra-garnet); margin-bottom: 4px;">
+            ${q.id}. ${q.title}
+          </div>
+          <div style="color: var(--success); font-weight: 700; font-size: 0.92rem; margin-bottom: 4px;">
+            ✓ Resposta esperada: ${q.modelAnswer}
+          </div>
+          <div style="font-size: 0.85rem; color: #78350f; background: var(--bartra-gold-subtle); padding: 6px 10px; border-radius: 6px;">
+            <strong>Pista d'ajuda:</strong> ${q.hint}
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // Inicialització
+    window.addEventListener('DOMContentLoaded', () => {
+      renderWelcomeScreen();
+    });
+  </script>
+</body>
+</html>
