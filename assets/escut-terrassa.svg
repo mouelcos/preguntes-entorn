@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 360" width="100%" height="100%">
+  <defs>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="6" stdDeviation="6" flood-opacity="0.25"/>
+    </filter>
+    <clipPath id="caironat-clip">
+      <!-- Diamond shape (escut caironat) centered at 150, 230 -->
+      <polygon points="150,110 260,220 150,330 40,220" />
+    </clipPath>
+  </defs>
+
+  <!-- Corona mural de ciutat (per timbre) -->
+  <g id="corona-mural" filter="url(#shadow)">
+    <!-- Base wall -->
+    <rect x="75" y="55" width="150" height="35" rx="3" fill="#d97706" stroke="#78350f" stroke-width="3"/>
+    <!-- Bricks texture -->
+    <line x1="75" y1="72" x2="225" y2="72" stroke="#78350f" stroke-width="2"/>
+    <line x1="112" y1="55" x2="112" y2="72" stroke="#78350f" stroke-width="2"/>
+    <line x1="150" y1="55" x2="150" y2="72" stroke="#78350f" stroke-width="2"/>
+    <line x1="188" y1="55" x2="188" y2="72" stroke="#78350f" stroke-width="2"/>
+    <line x1="95" y1="72" x2="95" y2="90" stroke="#78350f" stroke-width="2"/>
+    <line x1="130" y1="72" x2="130" y2="90" stroke="#78350f" stroke-width="2"/>
+    <line x1="170" y1="72" x2="170" y2="90" stroke="#78350f" stroke-width="2"/>
+    <line x1="205" y1="72" x2="205" y2="90" stroke="#78350f" stroke-width="2"/>
+
+    <!-- 5 towers / battlements -->
+    <!-- Tower 1 -->
+    <polygon points="70,30 92,30 92,55 70,55" fill="#f59e0b" stroke="#78350f" stroke-width="3"/>
+    <rect x="77" y="38" width="8" height="12" fill="#78350f" rx="1"/>
+    <!-- Tower 2 -->
+    <polygon points="104,26 126,26 126,55 104,55" fill="#f59e0b" stroke="#78350f" stroke-width="3"/>
+    <rect x="111" y="34" width="8" height="14" fill="#78350f" rx="1"/>
+    <!-- Central Tower 3 -->
+    <polygon points="138,20 162,20 162,55 138,55" fill="#fbbf24" stroke="#78350f" stroke-width="3"/>
+    <rect x="145" y="28" width="10" height="18" fill="#78350f" rx="1"/>
+    <!-- Tower 4 -->
+    <polygon points="174,26 196,26 196,55 174,55" fill="#f59e0b" stroke="#78350f" stroke-width="3"/>
+    <rect x="181" y="34" width="8" height="14" fill="#78350f" rx="1"/>
+    <!-- Tower 5 -->
+    <polygon points="208,30 230,30 230,55 208,55" fill="#f59e0b" stroke="#78350f" stroke-width="3"/>
+    <rect x="215" y="38" width="8" height="12" fill="#78350f" rx="1"/>
+  </g>
+
+  <!-- Escut caironat (diamond shield) -->
+  <g filter="url(#shadow)">
+    <!-- Shield Border & Background -->
+    <polygon points="150,110 260,220 150,330 40,220" fill="#f8fafc" stroke="#1e293b" stroke-width="5" stroke-linejoin="round"/>
+
+    <!-- Clipped Field (Partit: 1r gules castell, 2n or 4 pals) -->
+    <g clip-path="url(#caironat-clip)">
+      <!-- Left side: 1r quarter (Gules - Red) -->
+      <rect x="0" y="100" width="150" height="240" fill="#dc2626"/>
+
+      <!-- Right side: 2n quarter (Or amb 4 pals de gules - Senyera) -->
+      <rect x="150" y="100" width="150" height="240" fill="#facc15"/>
+      <!-- 4 pals de gules (red vertical bars) -->
+      <!-- Width from 150 to 260 is 110. 9 stripes (5 yellow, 4 red): each ~12px -->
+      <rect x="162" y="100" width="13" height="240" fill="#dc2626"/>
+      <rect x="187" y="100" width="13" height="240" fill="#dc2626"/>
+      <rect x="212" y="100" width="13" height="240" fill="#dc2626"/>
+      <rect x="237" y="100" width="13" height="240" fill="#dc2626"/>
+
+      <!-- Partit divider line -->
+      <line x1="150" y1="100" x2="150" y2="340" stroke="#1e293b" stroke-width="3"/>
+
+      <!-- Castell d'argent tancat de sable (White castle on left side) -->
+      <g id="castell" transform="translate(68, 175)">
+        <!-- Castle base wall -->
+        <path d="M 5,60 L 5,30 L 15,30 L 15,20 L 25,20 L 25,30 L 35,30 L 35,20 L 45,20 L 45,30 L 55,30 L 55,20 L 65,20 L 65,30 L 75,30 L 75,60 Z" fill="#f1f5f9" stroke="#1e293b" stroke-width="2.5" stroke-linejoin="round"/>
+        
+        <!-- Left tower -->
+        <rect x="8" y="10" width="16" height="22" fill="#f1f5f9" stroke="#1e293b" stroke-width="2.5"/>
+        <polygon points="5,10 8,2 24,2 27,10" fill="#e2e8f0" stroke="#1e293b" stroke-width="2"/>
+        <rect x="13" y="16" width="6" height="8" fill="#0f172a" rx="1"/>
+
+        <!-- Right tower -->
+        <rect x="56" y="10" width="16" height="22" fill="#f1f5f9" stroke="#1e293b" stroke-width="2.5"/>
+        <polygon points="53,10 56,2 72,2 75,10" fill="#e2e8f0" stroke="#1e293b" stroke-width="2"/>
+        <rect x="61" y="16" width="6" height="8" fill="#0f172a" rx="1"/>
+
+        <!-- Middle taller tower -->
+        <rect x="30" y="0" width="20" height="32" fill="#f8fafc" stroke="#1e293b" stroke-width="2.5"/>
+        <polygon points="26,0 30,-8 50,-8 54,0" fill="#e2e8f0" stroke="#1e293b" stroke-width="2"/>
+        <rect x="36" y="5" width="8" height="10" fill="#0f172a" rx="1"/>
+
+        <!-- Castle main gate (tancat de sable - black portal) -->
+        <path d="M 31,60 L 31,44 A 9 9 0 0 1 49,44 L 49,60 Z" fill="#0f172a" stroke="#1e293b" stroke-width="2"/>
+      </g>
+    </g>
+
+    <!-- Outer frame border overlay -->
+    <polygon points="150,110 260,220 150,330 40,220" fill="none" stroke="#b45309" stroke-width="6" stroke-linejoin="round"/>
+    <polygon points="150,110 260,220 150,330 40,220" fill="none" stroke="#fef08a" stroke-width="2" stroke-linejoin="round"/>
+  </g>
+
+  <!-- Banner text below -->
+  <text x="150" y="352" text-anchor="middle" font-family="'Nunito', sans-serif" font-weight="900" font-size="12" fill="#475569" letter-spacing="2">ESCUT DE TERRASSA</text>
+</svg>
