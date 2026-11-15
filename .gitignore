@@ -1,0 +1,13 @@
+# Excloure fitxers font originals i brossa
+PREGUNTES-CLASSROOM.docx
+
+# Sistema operatiu
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+.DS_Store
+
+# Temporals
+*.tmp
+*.temp
+*.log
